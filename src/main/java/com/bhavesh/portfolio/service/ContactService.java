@@ -24,6 +24,10 @@ public class ContactService {
 
         Contact contact = contactRepository.findFirstBy();
 
+        if (contact == null) {
+            throw new ResourceNotFoundException("Contact not found");
+        }
+
         return new ContactResponse(
                 contact.getEmail(),
                 contact.getPhone(),
@@ -31,6 +35,22 @@ public class ContactService {
                 contact.getGithub(),
                 contact.getLocation()
         );
+    }
+
+    // =========================
+    // Admin API - Get
+    // =========================
+
+    public Contact getContactAdmin() {
+
+        Contact contact = contactRepository.findFirstBy();
+
+        if (contact == null) {
+            throw new ResourceNotFoundException("Contact not found");
+        }
+
+        return contact;
+
     }
 
     // =========================
@@ -53,4 +73,5 @@ public class ContactService {
 
         return contactRepository.save(contact);
     }
+
 }

@@ -39,6 +39,16 @@ public class ProjectService {
     }
 
     // =========================
+    // Admin API - Get All
+    // =========================
+
+    public List<Project> getAllProjects() {
+
+        return projectRepository.findAll();
+
+    }
+
+    // =========================
     // Admin API - Create
     // =========================
 

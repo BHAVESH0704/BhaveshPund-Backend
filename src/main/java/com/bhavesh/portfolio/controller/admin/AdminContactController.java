@@ -17,6 +17,23 @@ public class AdminContactController {
         this.contactService = contactService;
     }
 
+    // =========================
+    // GET
+    // =========================
+
+    @GetMapping
+    public ResponseEntity<Contact> getContact() {
+
+        return ResponseEntity.ok(
+                contactService.getContactAdmin()
+        );
+
+    }
+
+    // =========================
+    // UPDATE
+    // =========================
+
     @PutMapping
     public ResponseEntity<Contact> updateContact(
             @Valid @RequestBody ContactRequest request) {
@@ -24,5 +41,7 @@ public class AdminContactController {
         return ResponseEntity.ok(
                 contactService.updateContact(request)
         );
+
     }
+
 }

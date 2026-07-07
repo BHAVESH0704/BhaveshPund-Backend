@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/admin/education")
 public class AdminEducationController {
@@ -18,13 +20,35 @@ public class AdminEducationController {
         this.educationService = educationService;
     }
 
+    // =========================
+    // GET ALL
+    // =========================
+
+    @GetMapping
+    public ResponseEntity<List<Education>> getAllEducation() {
+
+        return ResponseEntity.ok(
+                educationService.getAllEducation()
+        );
+
+    }
+
+    // =========================
+    // CREATE
+    // =========================
+
     @PostMapping
     public ResponseEntity<Education> createEducation(
             @Valid @RequestBody EducationRequest request) {
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(educationService.createEducation(request));
+
     }
+
+    // =========================
+    // UPDATE
+    // =========================
 
     @PutMapping("/{id}")
     public ResponseEntity<Education> updateEducation(
@@ -34,13 +58,21 @@ public class AdminEducationController {
         return ResponseEntity.ok(
                 educationService.updateEducation(id, request)
         );
+
     }
 
+    // =========================
+    // DELETE
+    // =========================
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteEducation(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteEducation(
+            @PathVariable Long id) {
 
         educationService.deleteEducation(id);
 
         return ResponseEntity.noContent().build();
+
     }
+
 }

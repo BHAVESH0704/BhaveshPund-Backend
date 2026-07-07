@@ -5,11 +5,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import org.springframework.stereotype.Component;
-import org.springframework.web.filter.OncePerRequestFilter;
-
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
@@ -31,31 +30,45 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String authHeader = request.getHeader("Authorization");
 
+        System.out.println("==================================");
+        System.out.println("URI : " + request.getRequestURI());
+        System.out.println("Authorization : " + authHeader);
+
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
 
+            System.out.println("No Bearer Token");
+
             filterChain.doFilter(request, response);
+
             return;
         }
 
         String token = authHeader.substring(7);
 
+        System.out.println("Token Received");
+
         if (jwtService.isTokenValid(token)) {
 
-    String username = jwtService.extractUsername(token);
+            String username = jwtService.extractUsername(token);
 
-    UsernamePasswordAuthenticationToken authentication =
-            new UsernamePasswordAuthenticationToken(
-                    username,
-                    null,
-                    null
-            );
+            UsernamePasswordAuthenticationToken authentication =
+                    new UsernamePasswordAuthenticationToken(
+                            username,
+                            null,
+                            null
+                    );
 
-    SecurityContextHolder.getContext()
-            .setAuthentication(authentication);
+            SecurityContextHolder.getContext()
+                    .setAuthentication(authentication);
 
-    System.out.println("JWT Valid");
-    System.out.println("Authenticated User: " + username);
-}
+            System.out.println("JWT Valid");
+            System.out.println("Authenticated User : " + username);
+
+        } else {
+
+            System.out.println("JWT INVALID");
+
+        }
 
         filterChain.doFilter(request, response);
     }

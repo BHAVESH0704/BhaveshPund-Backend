@@ -36,6 +36,16 @@ public class CertificationService {
     }
 
     // =========================
+    // Admin API - Get All
+    // =========================
+
+    public List<Certification> getAllCertifications() {
+
+        return repository.findAll();
+
+    }
+
+    // =========================
     // Admin API - Create
     // =========================
 
@@ -81,4 +91,5 @@ public class CertificationService {
 
         repository.deleteById(id);
     }
+
 }

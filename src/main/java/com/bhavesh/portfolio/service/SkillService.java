@@ -34,6 +34,16 @@ public class SkillService {
     }
 
     // =========================
+    // Admin API - Get All
+    // =========================
+
+    public List<Skill> getAllSkills() {
+
+        return skillRepository.findAll();
+
+    }
+
+    // =========================
     // Admin API - Create
     // =========================
 
@@ -75,4 +85,5 @@ public class SkillService {
 
         skillRepository.deleteById(id);
     }
+
 }

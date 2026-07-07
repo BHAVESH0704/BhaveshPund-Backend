@@ -36,6 +36,16 @@ public class ExperienceService {
     }
 
     // =========================
+    // Admin API - Get All
+    // =========================
+
+    public List<Experience> getAllExperience() {
+
+        return repository.findAll();
+
+    }
+
+    // =========================
     // Admin API - Create
     // =========================
 
@@ -81,4 +91,5 @@ public class ExperienceService {
 
         repository.deleteById(id);
     }
+
 }

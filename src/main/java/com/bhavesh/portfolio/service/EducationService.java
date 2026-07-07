@@ -36,6 +36,16 @@ public class EducationService {
     }
 
     // =========================
+    // Admin API - Get All
+    // =========================
+
+    public List<Education> getAllEducation() {
+
+        return educationRepository.findAll();
+
+    }
+
+    // =========================
     // Admin API - Create
     // =========================
 
@@ -81,4 +91,5 @@ public class EducationService {
 
         educationRepository.deleteById(id);
     }
+
 }
