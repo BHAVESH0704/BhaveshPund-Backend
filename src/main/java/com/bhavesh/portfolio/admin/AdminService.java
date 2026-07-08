@@ -17,8 +17,27 @@ public class AdminService {
 
     public boolean authenticate(String username, String password) {
 
-        return adminRepository.findByUsername(username)
-                .map(admin -> passwordEncoder.matches(password, admin.getPassword()))
-                .orElse(false);
+    System.out.println("Login attempt: " + username);
+
+    return adminRepository.findByUsername(username)
+            .map(admin -> {
+
+                System.out.println("Admin found: " + admin.getUsername());
+
+                boolean matches = passwordEncoder.matches(password, admin.getPassword());
+
+                System.out.println("Password matches: " + matches);
+
+                return matches;
+
+            })
+            .orElseGet(() -> {
+
+                System.out.println("Admin NOT FOUND");
+
+                return false;
+
+            });
+}
     }
 }

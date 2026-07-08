@@ -47,7 +47,7 @@ public class SecurityConfig {
                         .authenticated()
                 )
 
-                .httpBasic(Customizer.withDefaults())
+                .httpBasic(httpBasic -> httpBasic.disable())
 
                 .formLogin(form -> form.disable())
 
